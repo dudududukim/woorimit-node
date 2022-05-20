@@ -28,6 +28,16 @@ function login(){
     })
         .then((res)=>res.json())
         //이기 이 위에 친구가 promise로 return되서 다시 한번 .then 메서드 사용해서 console logd
-        .then((res)=>console.log(res));
+        .then((res)=>{
+            console.log(res);
+            if(res.success){
+                location.href="/";
+            }else{
+                alert(res.msg);
+            }
+        })
+        .catch((err)=>{
+            console.error(new Error(err));
+        });
     // fetch는 이 경로에서 데이터를 주고 받겠다는 역할?!
 }
