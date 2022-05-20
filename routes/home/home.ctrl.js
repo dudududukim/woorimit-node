@@ -1,6 +1,6 @@
 'use strict';
 
-const hello = (req, res)=>{
+const home = (req, res)=>{
     //브라우저에서 /요청이 오면 이렇게 하겠다
     res.render('home/index');
     //./view안해도 되는게 app.set에서 views를 ./views로 했기때문에
@@ -12,7 +12,7 @@ const login = (req, res)=>{
 };
 
 module.exports={
-    hello,
+    home,
     login,
 };
 
