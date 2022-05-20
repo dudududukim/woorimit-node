@@ -1,19 +1,26 @@
 'use strict';
 
-const home = (req, res)=>{
-    //브라우저에서 /요청이 오면 이렇게 하겠다
-    res.render('home/index');
-    //./view안해도 되는게 app.set에서 views를 ./views로 했기때문에
-};
+const output = {
+    home: (req, res) => {
+        //브라우저에서 /요청이 오면 이렇게 하겠다
+        res.render('home/index');
+        //./view안해도 되는게 app.set에서 views를 ./views로 했기때문에
+    },
+    login: (req, res) => {
+        //localhost:3000/login으로 접속시
+        res.render('home/login');
+    },
+}
 
-const login = (req, res)=>{
-    //localhost:3000/login으로 접속시
-    res.render('home/login');
-};
+const process = {
+    login:(req, res) =>{
+        console.log(req.body);
+    },
+}
 
-module.exports={
-    home,
-    login,
+module.exports = {
+    output,
+    process,
 };
 
 //app.get에서 사용자의 req에 따라서 어떠한 콜백을 보낼지를 컨트롤러로 묶어서 저장한다
