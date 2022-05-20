@@ -1,0 +1,43 @@
+GET /
+루트 dir를 get한다
+
+DELETE /sports/soccer/players/11
+스포츠안에 축구 선수 11번 삭제하라
+
+=> rest API를 읽는 것만으로도 의미를 이해할 수 있다
+
+http를 사용하여 요청 및 응답 처리 -> http인프라를 그대로 사용하개 때문에,
+rest aPI를 사용하기 위한 별도의 인프라의 구축이 필요없다
+
+클라이언트는 요청 / 서버가 응답
+클라이언트와 서버가 독립적으로 운영이 가능함
+rest API를 사용해야한다
+
+youtube.com/feed/trending
+rest API 메세지를 보기만해도 먼지 감이 온다
+
+rest : 분사 시스템 설계를 위한 아키텍처 스타일 / 네트워크 아키텍처 원리 모음 => 사이트 구성 원리
+REpresentational : 표현
+State : 상태
+Transfer : 전송
+
+자원의 표현을 가지고 상태를 전달한다
+
+rest
+사이트 구성 원리
+restful
+사이트 구성 원리를 따르는
+restufl API
+사이트 구성 원리를 따르는 API
+
+자원 : URL (/feed/subcritions) => 따라서 명사로 끝나야한다
+표현 : Header(text/html, image/gif) => 클라이언트가 받는 데이터
+상태 : Method(POST, GET, PUT, DELETE) => 자원의 동사verb
+
+/water에 대해서 메서드를 
+GET : 조회      => 물을 보여달라 / 데이터 내놔라
+POST : 생성     => 물을 생성해라 / 데이터 줄께
+PUT : 수정      => 물을 수정해라 / 데이터 갱신하자 야
+DELETE : 삭제   => 물을 삭제해라 / 데이터 빼라
+
+
