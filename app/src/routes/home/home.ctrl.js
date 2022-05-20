@@ -1,5 +1,10 @@
 'use strict';
 
+const users = {
+    id:["kdhluck", "kdhgood"],
+    pwd:["kp9551", "ambitikn0107"],
+}
+
 const output = {
     home: (req, res) => {
         //브라우저에서 /요청이 오면 이렇게 하겠다
@@ -14,7 +19,21 @@ const output = {
 
 const process = {
     login:(req, res) =>{
-        console.log(req.body);
+        const id = req.body.id,
+            pwd = req.body.pwd;
+        console.log(id, pwd);
+        if(users.id.includes(id)){
+            const idx = users.id.indexOf(id);
+            if(users.pwd[idx] === pwd){
+                return res.json({
+                    success: true,
+                });
+            }
+        }
+        return res.json({
+            succes: false,
+            msg: "login failed",
+        });
     },
 }
 
