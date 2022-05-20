@@ -1,0 +1,7 @@
+*.txt
+*.docx
+*.log
+node_modules
+.DS_Store
+*.tmp
+*~
