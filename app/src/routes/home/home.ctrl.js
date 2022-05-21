@@ -1,9 +1,7 @@
 'use strict';
 
-const users = {
-    id:["kdhluck", "kdhgood"],
-    pwd:["kp9551", "ambitikn0107"],
-}
+const { response } = require("../../../app");
+const UserStorage = require('../../models/UserStorage');
 
 const output = {
     home: (req, res) => {
@@ -22,18 +20,25 @@ const process = {
         const id = req.body.id,
             pwd = req.body.pwd;
         console.log(id, pwd);
+
+        const users = UserStorage.getUsers('id', 'pwd');
+        //Userstorage.js에서 직접 users에는 접근하지 못하게하면서
+        //getUsers라는 메소드를 지정해서
+        //개발자가 넘기는 변수들만을 users에서 골라오는 함수를 구성함
+
+
+        const response = {};
+
         if(users.id.includes(id)){
             const idx = users.id.indexOf(id);
             if(users.pwd[idx] === pwd){
-                return res.json({
-                    success: true,
-                });
+                response.success = true;
+                return res.json(response);
             }
         }
-        return res.json({
-            succes: false,
-            msg: "login failed",
-        });
+        response.success = false;
+        response.msg = "Login failed!";
+        return res.json(response);
     },
 }
 

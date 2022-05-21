@@ -37,7 +37,7 @@ function login(){
             }
         })
         .catch((err)=>{
-            console.error(new Error(err));
+            console.error("로그인 중 에러발생");
         });
     // fetch는 이 경로에서 데이터를 주고 받겠다는 역할?!
 }
