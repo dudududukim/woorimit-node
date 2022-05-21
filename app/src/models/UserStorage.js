@@ -7,7 +7,7 @@ class UserStorage {
         id:["kdhluck", "kdhgood"],
         pwd:["kp9551", "ambitikn0107"],
         name: ['김두현', '두두두두김'],
-    };
+    }
 
     static getUsers(...fields){
         //...변수명을하면 이 함수를 호출할 때 
@@ -23,7 +23,18 @@ class UserStorage {
                 // 첫번째 변수가 와야하나 {}로 설정해주는 역할
         return reqUsers;
 
-    };
+    }
+
+    static getUserInfo(id){
+        const users = this.#users;
+        const idx = users.id.indexOf(id);
+        const usersKeys = Object.keys(users);   // => [id, pwd, name]이 만들어짐
+        const userInfo = usersKeys.reduce((reqUser, info)=>{
+            reqUser[info] = users[info][idx];
+            return reqUser;
+        },{});
+        return userInfo;
+    }
 }
 
 module.exports=UserStorage;
