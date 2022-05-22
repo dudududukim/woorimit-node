@@ -14,6 +14,9 @@ const output = {
         //localhost:3000/login으로 접속시
         res.render('home/login');
     },
+    register:(req, res) =>{
+        res.render('home/register');
+    },
 }
 
 const process = {
