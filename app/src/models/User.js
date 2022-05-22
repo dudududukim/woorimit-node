@@ -11,8 +11,8 @@ class User{
         //login()에 async를 걸어놓음
         //Userstorage.getUserInof가 fs로 읽은파일을 프로미스로 반환하기 때문에
         //읽기 전에 데이터가 할당 되는 것을 막고자 awiat 함수를 사용함
-
         console.log(id, pwd);
+
         if(id){
             if(id === client.id && pwd === client.pwd){
                 return {success : true, msg : "Welcome!"};
@@ -21,9 +21,17 @@ class User{
         }
         return {success : false, msg : "You're not our user"};
     }
-    register(){
+    async register(){
         const client = this.body;
-        UserStorage.save(client);
+        try{
+            const response = await UserStorage.save(client);    
+            //await을 거는 이유 : 기다려
+            return response;
+        }catch(err){
+            console.error(err);
+            return {success : false, msg : err};
+        }
+        
     }
 }
 
