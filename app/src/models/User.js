@@ -5,16 +5,20 @@ class User{
         this.body = body;        
     }
     login(){
-        const body = this.body;
-        const {id, pwd} = UserStorage.getUserInfo(body.id);
+        const client = this.body;
+        const {id, pwd} = UserStorage.getUserInfo(client.id);
         console.log(id, pwd);
         if(id){
-            if(id === body.id && pwd === body.pwd){
+            if(id === client.id && pwd === client.pwd){
                 return {success : true, msg : "Welcome!"};
             }
             return {success : false, msg : "Please check password, again."};
         }
         return {success : false, msg : "You're not our user"}
+    }
+    register(){
+        const client = this.body;
+        UserStorage.save(client);
     }
 }
 
