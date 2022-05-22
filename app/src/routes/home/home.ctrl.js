@@ -20,9 +20,11 @@ const output = {
 }
 
 const process = {
-    login:(req, res) =>{
+    login: async (req, res) =>{
         const user = new User(req.body);
-        const response = user.login();
+        const response = await user.login();
+        //login이 async이기 때문에 login을 실행시키는 부분에도 async가 있어서
+        //await의 처리가 양호핟
         return res.json(response);
         
     },

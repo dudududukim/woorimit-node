@@ -1,18 +1,26 @@
 'use strict';
 
+const fs =require("fs").promises;
+
 class UserStorage {
-    static #users = {
+    //#은 클래스 맨 위에
+    static #getUserInfo(data, id){
+        const users = JSON.parse(data);
+        const idx = users.id.indexOf(id);
+        const usersKeys = Object.keys(users);   // => [id, pwd, name]이 만들어짐
+        const userInfo = usersKeys.reduce((reqUser, info)=>{
+            reqUser[info] = users[info][idx];
+            return reqUser;
+        },{});
+        return userInfo;
+    }
     //static을 통해서 외부에서 이 클래스로 직접 접근 가능
     //#은 은믹화priveil해서 외부에서 접근하지 못하게 함
-        id:["kdhluck", "kdhgood"],
-        pwd:["kp9551", "ambitikn0107"],
-        name: ['김두현', '두두두두김'],
-    }
 
     static getUsers(...fields){
         //...변수명을하면 이 함수를 호출할 때 
         // 넘긴 변수를 갯수에 상관없이 배열로 변수명에 저장함
-        const users = this.#users;
+        // const users = this.#users;
         const reqUsers = fields.reduce((reqUsers, field)=>{
             //reqUsers가 어큐뮬레이터, field가 배열 요소 받는거
             if(users.hasOwnProperty(field)) 
@@ -26,22 +34,20 @@ class UserStorage {
     }
 
     static getUserInfo(id){
-        const users = this.#users;
-        const idx = users.id.indexOf(id);
-        const usersKeys = Object.keys(users);   // => [id, pwd, name]이 만들어짐
-        const userInfo = usersKeys.reduce((reqUser, info)=>{
-            reqUser[info] = users[info][idx];
-            return reqUser;
-        },{});
-        return userInfo;
+        //fs.readFile의 경로는 app.js가 있는곳
+        return fs.readFile("./src/databases/users.json")
+            .then((data)=>{
+                return this.#getUserInfo(data, id);
+            })
+            .catch(console.error);        
     }
 
     static save(userInfo){
-        const users = this.#users;
-        users.name.push(userInfo.name);
-        users.id.push(userInfo.id);
-        users.pwd.push(userInfo.pwd);
-        console.log(users);
+        // const users = this.#users;
+        // users.name.push(userInfo.name);
+        // users.id.push(userInfo.id);
+        // users.pwd.push(userInfo.pwd);
+        // console.log(users);
     }
 }
 
