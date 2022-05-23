@@ -4,7 +4,7 @@ console.log('hello login');
 
 const id = document.querySelector('#id'),
     pwd = document.querySelector('#pwd'),
-    loginBtn = document.querySelector('button');
+    loginBtn = document.querySelector('#button');
 
 // console.log(id);
 
@@ -15,7 +15,6 @@ function login(){
         id: id.value,
         pwd: pwd.value,
     }
-    console.log(req, JSON.stringify(req));
     fetch("/login", {
         method: "POST",
         headers:{
@@ -35,10 +34,13 @@ function login(){
                 location.href="/";
             }else{
                 alert(res.msg);
+                location.href="/login";
             }
         })
         .catch((err)=>{
             console.error("로그인 중 에러발생");
+            // console.error(err);
+            // alert("에러 발생");
         });
     // fetch는 이 경로에서 데이터를 주고 받겠다는 역할?!
 }

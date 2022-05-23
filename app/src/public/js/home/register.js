@@ -4,7 +4,7 @@ const name = document.querySelector('#name'),
     id = document.querySelector('#id'),
     pwd = document.querySelector('#pwd'),
     cpwd = document.querySelector('#confirm-pwd'),
-    registerBtn = document.querySelector('button');
+    registerBtn = document.querySelector('#button');
 console.log("hello register");
 // console.log(id);
 

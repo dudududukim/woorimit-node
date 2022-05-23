@@ -6,12 +6,14 @@ class User{
     }
     async login(){
         const client = this.body;
-        const {id, pwd} = await UserStorage.getUserInfo(client.id);
+        try{
+            const userInfo = await UserStorage.getUserInfo(client.id);
+        const {id, pwd} = userInfo ? userInfo: {id: "", pwd: ""} ;
+        await UserStorage.getUserInfo(client.id);
         //awiat은 async함수 안에서만 작동하므로
         //login()에 async를 걸어놓음
         //Userstorage.getUserInof가 fs로 읽은파일을 프로미스로 반환하기 때문에
         //읽기 전에 데이터가 할당 되는 것을 막고자 awiat 함수를 사용함
-        console.log(id, pwd);
 
         if(id){
             if(id === client.id && pwd === client.pwd){
@@ -20,6 +22,10 @@ class User{
             return {success : false, msg : "Please check password, again."};
         }
         return {success : false, msg : "You're not our user"};
+        }catch(err){
+            return {success: false, msg: err};
+        }
+        
     }
     async register(){
         const client = this.body;
@@ -31,7 +37,6 @@ class User{
             console.error(err);
             return {success : false, msg : err};
         }
-        
     }
 }
 

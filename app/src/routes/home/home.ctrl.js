@@ -1,6 +1,6 @@
 'use strict';
 
-const { response } = require("../../../app");
+
 const User = require("../../models/User");
 const UserStorage = require('../../models/UserStorage');
 
