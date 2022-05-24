@@ -40,6 +40,7 @@ function register(){
             }else{
                 if(res.err) alert(res.err);
                 else alert(res.msg);
+                location.href="/register";
             }
         })
         .catch((err)=>{

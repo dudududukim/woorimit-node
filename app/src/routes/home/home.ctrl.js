@@ -7,17 +7,17 @@ const UserStorage = require('../../models/UserStorage');
 const output = {
     home: (req, res) => {
         //브라우저에서 /요청이 오면 이렇게 하겠다
-        logger.info(`GET / 200 "홈 화면으로 이동"`);
+        logger.info(`GET / 304 "홈 화면으로 이동"`);
         res.render('home/index');
         //./view안해도 되는게 app.set에서 views를 ./views로 했기때문에
     },
     login: (req, res) => {
         //localhost:3000/login으로 접속시
-        logger.info(`GET /login 200 "로그인 화면으로 이동"`);
+        logger.info(`GET /login 304 "로그인 화면으로 이동"`);
         res.render('home/login');
     },
     register:(req, res) =>{
-        logger.info(`GET /register 200 "회원가입 화면으로 이동"`);
+        logger.info(`GET /register 304 "회원가입 화면으로 이동"`);
         res.render('home/register');
     },
 }
@@ -28,32 +28,25 @@ const process = {
         const response = await user.login();
         //login이 async이기 때문에 login을 실행시키는 부분에도 async가 있어서
         //await의 처리가 양호핟
-        if(response.err){
-            logger.error(
-                `POST /login 200 Response : success: ${response.success} ${response.err}`
-            );
-        }else{
-            logger.info(
-                `POST /login 200 Response : success: ${response.success} msg: ${response.msg}`
-            );
-        }
-        
-        return res.json(response);
+        const url = {
+            method: "POST",
+            path: "/login",
+            status: response.err ? 400 : 200,
+        };
+        log(response,url);
+        return res.status(url.status).json(response);
         
     },
     register:async (req, res)=>{
         const user = new User(req.body);
         const response = await user.register();
-        if(response.err){
-            logger.error(
-                `POST /login 200 Response : success: ${response.success} ${response.err}`
-            );
-        }else{
-            logger.info(
-                `POST /login 200 Response : success: ${response.success} msg: ${response.msg}`
-            );
-        }
-        return res.json(response);
+        const url = {
+            method: "POST",
+            path: "/register",
+            status: response.err ? 500 : 201,
+        };
+        log(response, url);
+        return res.status(url.status).json(response);
     },
 }
 
@@ -61,6 +54,18 @@ module.exports = {
     output,
     process,
 };
+
+const log = (response, url)=>{
+    if(response.err){
+        logger.error(
+            `${url.method} ${url.path} ${url.status} Response: ${response.success} ${response.err}`
+        );
+    }else{
+        logger.info(
+            `${url.method} ${url.path} ${url.status} Response: ${response.success} ${response.msg || ""}`
+        );
+    }
+}
 
 //app.get에서 사용자의 req에 따라서 어떠한 콜백을 보낼지를 컨트롤러로 묶어서 저장한다
 //즉 프로그램을 좀 더 읽기 쉽게 모듈화하는 과정이라고 볼 수 있다

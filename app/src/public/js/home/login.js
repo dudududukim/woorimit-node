@@ -34,7 +34,6 @@ function login(){
         .then((res)=>{
             console.log(res);
             if(res.success){
-                alert(res.msg);
                 location.href="/";
             }else{
                 if(res.err) alert(res.err);
