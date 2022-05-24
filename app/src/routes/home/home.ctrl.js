@@ -1,20 +1,23 @@
 'use strict';
 
-
+const logger = require("../../config/logger");
 const User = require("../../models/User");
 const UserStorage = require('../../models/UserStorage');
 
 const output = {
     home: (req, res) => {
         //브라우저에서 /요청이 오면 이렇게 하겠다
+        logger.info(`GET / 200 "홈 화면으로 이동"`);
         res.render('home/index');
         //./view안해도 되는게 app.set에서 views를 ./views로 했기때문에
     },
     login: (req, res) => {
         //localhost:3000/login으로 접속시
+        logger.info(`GET /login 200 "로그인 화면으로 이동"`);
         res.render('home/login');
     },
     register:(req, res) =>{
+        logger.info(`GET /register 200 "회원가입 화면으로 이동"`);
         res.render('home/register');
     },
 }
@@ -25,12 +28,31 @@ const process = {
         const response = await user.login();
         //login이 async이기 때문에 login을 실행시키는 부분에도 async가 있어서
         //await의 처리가 양호핟
+        if(response.err){
+            logger.error(
+                `POST /login 200 Response : success: ${response.success} ${response.err}`
+            );
+        }else{
+            logger.info(
+                `POST /login 200 Response : success: ${response.success} msg: ${response.msg}`
+            );
+        }
+        
         return res.json(response);
         
     },
     register:async (req, res)=>{
         const user = new User(req.body);
         const response = await user.register();
+        if(response.err){
+            logger.error(
+                `POST /login 200 Response : success: ${response.success} ${response.err}`
+            );
+        }else{
+            logger.info(
+                `POST /login 200 Response : success: ${response.success} msg: ${response.msg}`
+            );
+        }
         return res.json(response);
     },
 }

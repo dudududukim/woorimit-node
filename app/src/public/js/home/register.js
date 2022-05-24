@@ -38,7 +38,8 @@ function register(){
                 alert(res.msg);
                 location.href="/login";
             }else{
-                alert(res.msg);
+                if(res.err) alert(res.err);
+                else alert(res.msg);
             }
         })
         .catch((err)=>{

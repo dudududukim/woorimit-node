@@ -23,7 +23,7 @@ class User{
         }
         return {success : false, msg : "You're not our user"};
         }catch(err){
-            return {success: false, msg: err};
+            return {success: false, err};
         }
         
     }
@@ -35,7 +35,7 @@ class User{
             return response;
         }catch(err){
             console.error(err);
-            return {success : false, msg : err};
+            return {success : false, err};
         }
     }
 }

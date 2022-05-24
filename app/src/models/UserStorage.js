@@ -10,7 +10,7 @@ class UserStorage {
                 if(err) {
                     reject(`${err}`);
                 }
-                resolve(data[0]);
+                else resolve(data[0]);
             });
         });
     }
@@ -22,7 +22,7 @@ class UserStorage {
                 if(err) {
                     reject(`${err}`);
                 }
-                resolve({success : true, msg : "added"});
+                else resolve({success : true, msg : "added"});
             });
         });
     }

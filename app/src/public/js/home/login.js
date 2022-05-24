@@ -11,6 +11,10 @@ const id = document.querySelector('#id'),
 loginBtn.addEventListener('click', login);
 
 function login(){
+    if(!id.value) return alert("please enter ID");
+    if(!pwd.value) return alert("please enter PSWD");
+
+
     const req={
         id: id.value,
         pwd: pwd.value,
@@ -33,7 +37,8 @@ function login(){
                 alert(res.msg);
                 location.href="/";
             }else{
-                alert(res.msg);
+                if(res.err) alert(res.err);
+                else alert(res.msg);
                 location.href="/login";
             }
         })
